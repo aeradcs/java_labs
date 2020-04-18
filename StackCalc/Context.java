@@ -18,7 +18,7 @@ public class Context {
     }
     public void printStack()
     {
-        System.out.println("stack");
+        System.out.println("stack___________");
         for (double n:stack) {
             System.out.println(n);
         }

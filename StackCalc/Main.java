@@ -56,10 +56,39 @@ public class Main {
             Scanner inputStream = new Scanner(inputFile);
 
             String str = null;
+            String[] splitedLine;
+            ArrayList<String> commandArguments = new ArrayList<String>();
+
+            CommandFactory commandFactory = new CommandFactory();
             while (inputStream.hasNext())
             {
                 str = inputStream.nextLine();
 
+                splitedLine = str.split(" ", 0);
+                for (int i = 1; i < splitedLine.length; i++)
+                {
+                    if(splitedLine[i] != "")
+                    {
+                        commandArguments.add(splitedLine[i]);
+                    }
+                }
+                if(!CommandFactory.findComInCache(splitedLine[0]))
+                {
+                    Base command = CommandFactory.create(splitedLine[0]);
+                    command.DoWork(context, commandArguments);
+                    CommandFactory.pushComToCache(splitedLine[0], command);
+                }
+                else
+                {
+                    Base command = CommandFactory.getInstance(splitedLine[0]);
+                    command.DoWork(context, commandArguments);
+                }
+
+                context.printStack();
+                context.printVars();
+
+                commandArguments.clear();
+                //str = inputStream.nextLine();
                 //System.out.println(str);
             }
 

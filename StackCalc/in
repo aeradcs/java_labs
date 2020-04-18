@@ -1,2 +1,10 @@
 DEFINE a 4
+DEFINE b 10
+DEFINE c 8
+PUSH a
+PUSH b
+PUSH c
++
+*
 SQRT
+POP
