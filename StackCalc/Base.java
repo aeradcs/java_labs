@@ -1,5 +1,5 @@
 package Factory;
 import java.util.*;
 public interface Base {
-    public void DoWork(Context context, List<String> commandArgs);
+    public void DoWork(Context context, List<String> commandArgs)throws Exception;
 }
