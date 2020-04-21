@@ -147,4 +147,28 @@ public class TestStackCalculator {
         Double res = context.getFromStack();
         Assert.assertEquals(expected, res);
     }
+    @Test
+    public void testOneMillCom() throws Exception
+    {
+        CommandFactory commandFactory = new CommandFactory();
+        Context context = new Context();
+        context.setVariable("a", 4.0);
+        ArrayList<String> commandArguments = new ArrayList<String>();
+        commandArguments.add("a");
+
+        Base command = null;
+        for(int i = 0; i < 1000000; i++) {
+            if (!CommandFactory.findComInCache("PUSH"))
+            {
+                command = CommandFactory.create("PUSH");
+                CommandFactory.pushComToCache("PUSH", command);
+                command.DoWork(context, commandArguments);            }
+            else
+            {
+                command = CommandFactory.getInstance("PUSH");
+                command.DoWork(context, commandArguments);
+            }
+        }
+    }
 }
+
